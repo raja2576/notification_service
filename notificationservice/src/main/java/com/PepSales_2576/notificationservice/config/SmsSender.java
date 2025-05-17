@@ -1,11 +1,10 @@
 package com.PepSales_2576.notificationservice.config;
 
-import com.twilio.Twilio;  
+import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
+import com.twilio.type.PhoneNumber;
 import jakarta.annotation.PostConstruct;
+import org.springframework.stereotype.Service;
 
 @Service
 public class SmsSender {
@@ -16,19 +15,21 @@ public class SmsSender {
 
     @PostConstruct
     public void init() {
-        if (accountSid == null || authToken == null) {
-            throw new IllegalStateException("Twilio credentials are not set!");
+        if (accountSid == null || authToken == null || fromPhoneNumber == null) {
+            throw new IllegalStateException("Twilio credentials or phone number are not properly set!");
         }
-        System.out.println("Twilio SID: " + accountSid.substring(0, 5) + "...");
+        System.out.println("Initializing Twilio with SID: " + accountSid.substring(0, 5) + "...");
         Twilio.init(accountSid, authToken);
     }
 
-
-
     public void sendSms(String toPhoneNumber, String message) {
+        if (toPhoneNumber == null || message == null || message.isEmpty()) {
+            throw new IllegalArgumentException("Phone number and message must not be null or empty");
+        }
+
         Message.creator(
-                new com.twilio.type.PhoneNumber(toPhoneNumber),
-                new com.twilio.type.PhoneNumber(fromPhoneNumber),
+                new PhoneNumber(toPhoneNumber),
+                new PhoneNumber(fromPhoneNumber),
                 message
         ).create();
 
