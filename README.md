@@ -41,7 +41,8 @@ notificationservice/
 ├── service/                # Notification service logic
 └── NotificationServiceApplication.java
 
-````
+
+```
 
 ---
 
