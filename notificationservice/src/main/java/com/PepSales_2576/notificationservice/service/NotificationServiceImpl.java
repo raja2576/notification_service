@@ -47,7 +47,7 @@ public class NotificationServiceImpl implements NotificationService {
         String rawNumber = request.getPhone();
         String toNumber = null;
         
-        System.out.println(accountSid);
+       
         
 
         if (rawNumber != null && !rawNumber.isBlank()) {
