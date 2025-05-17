@@ -222,8 +222,3 @@ GitHub: [https://github.com/raja2576](https://github.com/raja2576)
 *Thank you for using Notification Service!*
 
 ```
-
----
-
-If you want, I can also help you generate sample Postman collections or curl commands for quick testing! Would that be helpful?
-```
