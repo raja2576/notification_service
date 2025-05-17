@@ -38,10 +38,6 @@ public class NotificationServiceImpl implements NotificationService {
     @Autowired
     private SmsSender smsSender;
 
-    private final String accountSid = EnvConfig.getEnv("TWILIO_ACCOUNT_SID");
-    private final String authToken = EnvConfig.getEnv("TWILIO_AUTH_TOKEN");
-    private final String fromPhoneNumber = EnvConfig.getEnv("TWILIO_PHONE_NUMBER");
-
     
  
     
