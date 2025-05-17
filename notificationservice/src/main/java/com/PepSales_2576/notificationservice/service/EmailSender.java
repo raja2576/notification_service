@@ -5,9 +5,7 @@ import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 
-import io.github.cdimascio.dotenv.Dotenv;
-
-import org.springframework.beans.factory.annotation.Value;
+import com.PepSales_2576.notificationservice.config.EnvConfig;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -15,27 +13,22 @@ import java.io.IOException;
 @Service
 public class EmailSender {
 
-    
-    private String sendGridApiKey;
+    private final String sendGridApiKey = EnvConfig.getEnv("SENDGRID_API_KEY");
 
-     // fallback to default if not set
-    private String fromEmail="22052576@kiit.ac.in";
-    
+    // fallback default sender email
+    private final String fromEmail = "22052576@kiit.ac.in";
+
     public EmailSender() {
-        Dotenv dotenv = Dotenv.configure()
-                .directory("./")  // Adjust if your .env is not in root
-                .ignoreIfMalformed()
-                .ignoreIfMissing()
-                .load();
-
-        this.sendGridApiKey = dotenv.get("SENDGRID_API_KEY");
-
         if (sendGridApiKey == null || sendGridApiKey.isEmpty()) {
-            throw new IllegalStateException("SENDGRID_API_KEY is missing from .env file.");
+            throw new IllegalStateException("SENDGRID_API_KEY is missing from environment variables.");
         }
     }
 
     public void sendEmail(String to, String subject, String contentText) {
+        if (to == null || to.isEmpty() || subject == null || contentText == null) {
+            throw new IllegalArgumentException("To address, subject, and content must be non-null and valid.");
+        }
+
         Email from = new Email(fromEmail);
         Email toEmail = new Email(to);
         Content content = new Content("text/plain", contentText);
