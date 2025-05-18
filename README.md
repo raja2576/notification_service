@@ -169,7 +169,7 @@ Notification Service is up and running!
 
 ### 1. Localhost: Sending Notification to a User
 >[![Localhost Screenshot](https://i.ibb.co/QFWNJ2Tn/Screenshot-2025-05-17-185146.jpg)](https://i.ibb.co/QFWNJ2Tn/Screenshot-2025-05-17-185146.jpg)
->[2.jpg](https://postimg.cc/SJJyrqV0)
+>[![2.jpg](https://i.postimg.cc/xTPc91zd/2.jpg)](https://postimg.cc/SJJyrqV0)
 
 
 
