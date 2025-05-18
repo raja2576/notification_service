@@ -191,8 +191,8 @@ Notification Service is up and running!
 ## 🧠 Assumptions
 
 * Users exist in the database before sending notifications.
-*---
-
+---
+* If User Not in DB
 ### 🆕 Automatic User Registration
 
 If a notification is sent to a user ID that is not already registered in the system, the service will **automatically create the user** in the database before sending the notification. This helps reduce the overhead of pre-registering users and supports seamless integration with external systems.
