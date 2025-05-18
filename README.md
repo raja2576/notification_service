@@ -99,7 +99,7 @@ spring.datasource.driver-class-name=org.postgresql.Driver
 }
 ```
 
-> For `type = sms`, include `"phone": "7979098537"`
+> For `type = sms`, include `"phone": "your-phone-nunber"` 
 
 **Response:**
 
