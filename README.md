@@ -167,7 +167,11 @@ Notification Service is up and running!
 
 ## 📸 Screenshots
 
+### 1. Localhost: Sending Notification to a User
 >[![Localhost Screenshot](https://i.ibb.co/QFWNJ2Tn/Screenshot-2025-05-17-185146.jpg)](https://i.ibb.co/QFWNJ2Tn/Screenshot-2025-05-17-185146.jpg)
+>[2.jpg](https://postimg.cc/SJJyrqV0)
+
+
 
 
 ---
@@ -212,16 +216,6 @@ sequenceDiagram
 }
 
 ```
-
-
-**Some ScreenShots Proofs**
-```
-1.Local Host Sending notification to a User
-![Screenshot-2025-05-17-185146](https://i.ibb.co/QFWNJ2Tn/Screenshot-2025-05-17-185146.jpg)
-
-
-```
-
 
 
 📝 **Note:**
