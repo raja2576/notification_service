@@ -1,26 +1,20 @@
-
-````markdown
 # Notification Service
 
-A robust microservice to handle sending notifications via Email, SMS, and In-App messages.  
-Built with Spring Boot, RabbitMQ, Twilio, and SMTP integration.
+A robust and scalable microservice for sending notifications via **Email**, **SMS**, and **In-App messages**. Built using **Spring Boot**, integrated with **RabbitMQ**, **Twilio**, and **SMTP** for efficient and asynchronous communication.
+
+Hosted on **Render** and ready to plug into your larger microservices architecture.
 
 ---
 
-## Table of Contents
+## 🌐 Live URL
 
-- [Project Structure](#project-structure)  
-- [Features](#features)  
-- [Setup Instructions](#setup-instructions)  
-- [API Documentation](#api-documentation)  
-- [Assumptions](#assumptions)  
-- [Screenshots](#screenshots)  
-- [Future Enhancements](#future-enhancements)  
-- [Contact](#contact)  
+> Base URL: `https://notification-service-3.onrender.com`
+
+Use this URL to access all endpoints listed below.
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```plaintext
 notificationservice/
@@ -31,194 +25,212 @@ notificationservice/
 ├── repo/                   # Spring Data JPA Repositories
 ├── service/                # Notification service logic
 └── NotificationServiceApplication.java  # Main Spring Boot application
-````
+```
 
 ---
 
-## Features
+## 🚀 Features
 
-* Send notifications to users via:
-
-  * **Email** (SMTP)
-  * **SMS** (Twilio)
-  * **In-App** (stored in database)
-* Bulk notification support
-* Phone number normalization and validation
-* Persist notifications for user retrieval
-* RESTful API endpoints for interaction
-* RabbitMQ integration for scalable message queuing (setup assumed)
+* Send single or bulk notifications
+* Supports Email, SMS (via Twilio), and In-App messages
+* RabbitMQ for async queuing
+* Spring Boot + Spring Data JPA + Neon/PostgreSQL
+* Configurable templates and payloads
 
 ---
 
-## Setup Instructions
+## ⚙️ Setup Instructions
 
-1. **Clone the repository**
+```bash
+# Clone the repo
+https://github.com/raja2576/notification-Service.git
 
-   ```bash
-   git clone https://github.com/raja2576/notification-Service.git
-   cd notification-Service
-   ```
+# Navigate to the project directory
+cd notificationservice
 
-2. **Configure Environment Variables**
+# Build the project
+./mvnw clean install
 
-   Set the following environment variables or update `EnvConfig` to suit your environment:
+# Run the application
+./mvnw spring-boot:run
 
-   | Variable              | Description                                          |
-   | --------------------- | ---------------------------------------------------- |
-   | `TWILIO_ACCOUNT_SID`  | Your Twilio Account SID                              |
-   | `TWILIO_AUTH_TOKEN`   | Your Twilio Auth Token                               |
-   | `TWILIO_PHONE_NUMBER` | Your Twilio phone number                             |
-   | SMTP Configs          | Your SMTP host, username, password for email sending |
+# App will be accessible at:
+http://localhost:8080
+```
 
-3. **Database**
+**Environment Variables (set in .env file):**
 
-   Configure your database connection in `application.properties` or `application.yml`. By default, H2 or any Spring-supported datasource can be used.
-
-4. **Run RabbitMQ**
-
-   Make sure RabbitMQ is running on your machine or server, accessible by the service.
-
-5. **Build and Run**
-
-   Using Maven:
-
-   ```bash
-   mvn clean install
-   mvn spring-boot:run
-   ```
-
-6. **Test the APIs**
-
-   Use tools like Postman or curl (see API documentation below).
+```properties
+spring.datasource.url=jdbc:postgresql://your-db-url
+spring.datasource.username=your-db-user
+spring.datasource.password=your-db-password
+twilio.account.sid=your_twilio_sid
+twilio.auth.token=your_twilio_auth_token
+twilio.phone.number=+1XXXXXXXXXX
+```
 
 ---
 
-## API Documentation
+## 📬 API Documentation
 
-### 1. Send Single Notification
+### 1. **Send Notification**
 
-**POST** `/notifications`
+* **POST** `/notifications`
+* Send email, SMS, or in-app message to a single user
 
-**Request Body** (JSON):
+**Request Body:**
 
 ```json
 {
-  "userId": "user123",
-  "email": "user@example.com",
-  "phone": "+919876543210",
-  "type": "email", 
-  "subject": "Welcome!",
-  "message": "Hello, welcome to our service."
+  "userId": "Atul",
+  "type": "email",
+  "subject": "Test Notification",
+  "message": "This is a test message.",
+  "email": "atul5465king@gmail.com"
 }
 ```
 
-* `type` can be `email`, `sms`, or `inapp`
-* `email` or `phone` must be provided
+> For `type = sms`, include `"phone": "7979098537"`
 
-**Success Response:**
-
-* Status: `200 OK`
-* Body: `"Notification queued"`
-
-**Error Response:**
-
-* Status: `400 Bad Request`
-* Body: Error message explaining missing fields or invalid data
-
----
-
-### 2. Get Notifications for a User
-
-**GET** `/notifications/users/{userId}`
-
-**Example:**
+**Response:**
 
 ```
-GET /notifications/users/user123
+200 OK
+Notification queued
 ```
 
-**Success Response:**
+### 2. **Send Bulk Notification**
 
-* Status: `200 OK`
-* Body: JSON array of notification messages
+* **POST** `/notifications/bulk`
+* Notify multiple users at once
+
+**Request Body:**
+
+```json
+{
+  "userIds": ["Atul", "user999"],
+  "type": "email",
+  "subject": "Flash Sale!",
+  "message": "Get 50% off today only!"
+}
+```
+
+**Response:**
+
+```
+200 OK
+Bulk notification sent successfully.
+```
+
+### 3. **Get User Notifications**
+
+* **GET** `/notifications/users/{userId}`
+* Fetch all in-app messages for a user
+
+**Request:**
+
+```
+GET /notifications/users/Atul
+```
+
+**Response:**
 
 ```json
 [
-  "Hello, welcome to our service.",
-  "Your order has been shipped."
+  "Welcome to the Notification Service!",
+  "Your order has been delivered.",
+  "Flat 50% discount only today!"
 ]
 ```
 
-**Error Response:**
+### 4. **Health Check Endpoint (Optional)**
 
-* Status: `404 Not Found`
-* Body: `"User not found with id: user123"`
+* **GET** `/health`
+* Verify if the service is up
+
+**Response:**
+ 
+```
+200 OK
+Notification Service is up and running!
+```
 
 ---
 
-### 3. Send Bulk Notifications
+## 📸 Screenshots
 
-**POST** `/notifications/bulk`
+> *Add screenshots here of Postman tests or UI (if available)*
 
-**Request Body** (JSON):
+---
+
+## 🧠 Assumptions
+
+* Users exist in the database before sending notifications.
+*---
+
+### 🆕 Automatic User Registration
+
+If a notification is sent to a user ID that is not already registered in the system, the service will **automatically create the user** in the database before sending the notification. This helps reduce the overhead of pre-registering users and supports seamless integration with external systems.
+
+✅ **Supported For:**
+
+* Email Notifications
+* SMS Notifications
+* In-App Notifications
+
+🔄 **Workflow Example:**
+
+```mermaid
+sequenceDiagram
+    Client ->> Notification API: Send POST /notifications
+    alt User ID Not Found
+        Notification API ->> UserService: Create new user (userId)
+        UserService ->> DB: Insert user record
+    end
+    Notification API ->> NotificationService: Process notification
+    NotificationService ->> Queue/Email/SMS: Deliver notification
+```
+
+📦 **Sample Request:**
 
 ```json
 {
-  "userIds": ["user123", "user456"],
+  "userId": "newUser123",
   "type": "sms",
-  "subject": "Update",
-  "message": "This is a bulk notification."
+  "subject": "Welcome!",
+  "message": "You are now registered and this is your first notification.",
+  "phone": "+919999999999"
 }
 ```
 
-* Sends the same notification to multiple users
-* Users without required contact info will be skipped with a console log
+📝 **Note:**
 
-**Success Response:**
-
-* Status: `200 OK`
-* Body: `"Bulk notification sent successfully."`
-
-**Error Response:**
-
-* Status: `400 Bad Request`
-* Body: Error message on invalid input or missing user IDs
+* The `userId`, `email`, or `phone` is used to auto-create the user.
+* Duplicate `userId`s will not be re-created — the system checks for existence before insert.
 
 ---
 
-## Assumptions
-
-* Users are identified uniquely by `userId`.
-* Phone numbers are normalized to E.164 format, with default country code `+91` if missing.
-* Twilio and SMTP services are correctly configured with valid credentials.
-* RabbitMQ is used for queuing but setup details are abstracted here.
-* Email and SMS sending services (`EmailSender`, `SmsSender`) are implemented and injected correctly.
+* SMS and Email require phone and email respectively.
+* RabbitMQ and Twilio credentials are correctly configured.
+* In-app messages are stored for audit/log purposes.
 
 ---
 
-## Screenshots
+## 🔮 Future Enhancements
 
-*Add screenshots of your Postman tests, application logs, or UI here*
-
----
-
-## Future Enhancements
-
-* Add authentication and authorization for API endpoints
-* Support for more notification channels (push notifications, WhatsApp)
-* Dashboard for notification history and stats
-* Retry mechanism and dead letter queues for failed messages
+* Admin dashboard to view logs and notification history
+* WebSocket push notifications for real-time updates
+* Retry mechanism for failed notifications
+* Localization support (multi-language templates)
 
 ---
 
-## Contact
+## 🤝 Contact
 
-For questions or suggestions, please contact:
-**Raja** - [raja2576@gmail.com](mailto:raja2576@gmail.com)
-GitHub: [https://github.com/raja2576](https://github.com/raja2576)
+**Developer:** Raja Kumar
+**Email:** [raja2576@gmail.com](mailto:22052576@kiit.ac.in)
+**GitHub:** [github.com/raja2576](https://github.com/raja2576)
 
 ---
 
-*Thank you for using Notification Service!*
-
-```
+> *This service is production-ready and can be integrated into any e-commerce, SaaS, or enterprise-level architecture.*
