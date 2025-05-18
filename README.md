@@ -167,7 +167,8 @@ Notification Service is up and running!
 
 ## 📸 Screenshots
 
-> *Add screenshots here of Postman tests or UI (if available)*
+>[![Localhost Screenshot](https://i.ibb.co/QFWNJ2Tn/Screenshot-2025-05-17-185146.jpg)](https://i.ibb.co/QFWNJ2Tn/Screenshot-2025-05-17-185146.jpg)
+
 
 ---
 
