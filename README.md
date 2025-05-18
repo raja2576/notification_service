@@ -9,8 +9,8 @@ Hosted on **Render** and ready to plug into your larger microservices architectu
 ## 🌐 Live URL
 
 > Base URL: `https://notification-service-3.onrender.com`
-> '/' --> No endPoint (Read ReadMe to find out correct endpoints)
-> Use Any Api Tester Like Postman,Talend Api Tester
+* '/' --> No endPoint (Read ReadMe to find out correct endpoints)
+* Use Any Api Tester Like Postman,Talend Api Tester
 
 Use this URL to access all endpoints listed below.
 
