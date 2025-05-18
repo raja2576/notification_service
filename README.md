@@ -9,6 +9,7 @@ Hosted on **Render** and ready to plug into your larger microservices architectu
 ## 🌐 Live URL
 
 > Base URL: `https://notification-service-3.onrender.com`
+> Use Any Api Tester Like Postman,Talend Api Tester
 
 Use this URL to access all endpoints listed below.
 
@@ -59,14 +60,21 @@ http://localhost:8080
 ```
 
 **Environment Variables (set in .env file):**
+```
+TWILIO_ACCOUNT_SID=ACc3a36e5b8xxxxxxxxxxxxxxxxxxxxxxxxxx
+TWILIO_AUTH_TOKEN=146a4216764c4xxxxxxxxxxxxxxxxxxxxx
+TWILIO_PHONE_NUMBER=+123xxxxxxx
 
+SENDGRID_API_KEY=SG.hWUKIcrNSS6LMYX_Q9zybA.3tHf2AQ_rr2Isn9jN84HVl4iuI4pboi3xxxxxxxx
+fromEmail=22052576@kiit.ac.in
+```
+
+**DB properties Mentioned in Application.Properties**
 ```properties
-spring.datasource.url=jdbc:postgresql://your-db-url
-spring.datasource.username=your-db-user
-spring.datasource.password=your-db-password
-twilio.account.sid=your_twilio_sid
-twilio.auth.token=your_twilio_auth_token
-twilio.phone.number=+1XXXXXXXXXX
+spring.datasource.url=jdbc:postgresql://ep-little-dawn-a4gnep7r-pooler.us-east-1.aws.neon.tech:5432/neondb?sslmode=require
+spring.datasource.username=neondb_owner
+spring.datasource.password=npg_2xTyMAuql6Dj
+spring.datasource.driver-class-name=org.postgresql.Driver
 ```
 
 ---
@@ -201,7 +209,19 @@ sequenceDiagram
   "message": "You are now registered and this is your first notification.",
   "phone": "+919999999999"
 }
+
 ```
+
+
+**Some ScreenShots Proofs**
+```
+1.Local Host Sending notification to a User
+![Screenshot-2025-05-17-185146](https://i.ibb.co/QFWNJ2Tn/Screenshot-2025-05-17-185146.jpg)
+
+
+```
+
+
 
 📝 **Note:**
 
@@ -228,7 +248,7 @@ sequenceDiagram
 ## 🤝 Contact
 
 **Developer:** Raja Kumar
-**Email:** [raja2576@gmail.com](mailto:22052576@kiit.ac.in)
+**Email:** [Raja](mailto:22052576@kiit.ac.in)
 **GitHub:** [github.com/raja2576](https://github.com/raja2576)
 
 ---
